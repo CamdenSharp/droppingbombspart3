@@ -42,12 +42,12 @@ public class GameManager : MonoBehaviour
             {
                 ResetGame();
             }
-            else
+        }
+        else
+        {
+            if (!player)
             {
-                if (!player)
-                {
-                    OnPlayerKilled();
-                }
+                OnPlayerKilled();
             }
         }
 
@@ -55,10 +55,11 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject bombObject in nextBomb)
         {
-            if (bombObject.transform.position.y < (-screenBounds.y) - 12 || !gameStarted)
+            if (!gameStarted)
             {
                 Destroy(bombObject);
-            } else if (bombObject.transform.position.y < (-screenBounds.y) && gameStarted)
+            }
+            else if (bombObject.transform.position.y < (-screenBounds.y))
             {
                 scoreSystem.GetComponent<Score>().AddScore(pointsWorth);
                 Destroy(bombObject);
@@ -73,7 +74,6 @@ public class GameManager : MonoBehaviour
         splash.SetActive(false);
         player = Instantiate(playerPrefab, new Vector3(0, 0, 0), playerPrefab.transform.rotation);
         gameStarted = true;
-
         scoreText.enabled = true;
         scoreSystem.GetComponent<Score>().score = 0;
         scoreSystem.GetComponent<Score>().Start();
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         spawner.active = false;
         gameStarted = false;
-
         splash.SetActive(true);
+        score = scoreSystem.GetComponent<Score>().score;
     }
 }
