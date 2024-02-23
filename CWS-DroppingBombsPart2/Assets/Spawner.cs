@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject bombPrefab;
     public float delay = 2.0f;
-    public bool active = false;
+    public bool active = true;
     public Vector2 delayRange = new Vector2(1, 2);
 
     private Vector2 screenBounds;
